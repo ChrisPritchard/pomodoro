@@ -5,6 +5,7 @@
         <style>
             body {
                 background-color: red;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             }
             .container {
                 display: table;
@@ -20,21 +21,103 @@
             }
             .controller {
                 margin: auto;
+                padding: 10px;
                 width: 300px;
                 height: 400px;
                 background-color: white;
+                text-align: center;
+            }
+            @keyframes pomodoroStart {
+                0%		{ background-color: red;}
+                25%		{ background-color: white;}
+                50%		{ background-color: green;}
+                75%		{ background-color: white;}
+                100%	{ background-color: red;}
+            }
+
+            .flash {
+                animation: pomodoroStart 1s;
             }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="cell">
-                <div class="controller"></div>
+                <div class="controller">
+                    <h1>Pomodoro!</h1>
+                    <p>The technique involves four 'pomodoro' sessions, of 25 minutes each. They are seperated by five to ten minute breaks. During a session, you must FOCUS on your task - divert all distractions to the breaks if possible. If you finish your task before the session is over, work on it some more, reviewing what you've done etc.</p>
+                    <p><b>Ready for 100 minutes of focused work?</b></p>
+                    <p>Enter 'Yes, Let's Go!' into the textbox below and hit begin!</p>
+                    <input type="textbox" />
+                    <p>
+                        <button disabled>Begin</button>
+                    </p>
+                </div>
             </div>
         </div>
 
         <script>
-
+            let fiveMinutes = 3000;//;5*60000;
+            document.querySelector(".controller input").addEventListener("input", function() {
+                if(this.value != 'Yes, Let\'s Go!')
+                    return;
+                let button = document.querySelector(".controller button");
+                button.removeAttribute("disabled");
+                button.addEventListener("click", function () { startPomodoro(0); });
+            });
+            function flash() {
+                document.body.classList.add("flash");
+                setTimeout(function() {
+                    document.body.classList.remove("flash");
+                }, 2000);
+            }
+            function startPomodoro(index) {
+                flash();
+                document.querySelector(".controller").innerHTML = "<h1>Pomodoro "+(index+1)+"</h1><h2>FOCUS!</h2><h2>FOCUS!</h2><h2>FOCUS!</h2><h2>FOCUS!</h2><h2>FOCUS!</h2><span class=\"status\">first five minutes...</span>";
+                
+                setTimeout(function() {
+                    document.querySelector(".status").innerText = "second five minutes...";
+                },fiveMinutes);
+                setTimeout(function() {
+                    document.querySelector(".status").innerText = "third five minutes...";
+                },2*fiveMinutes);
+                setTimeout(function() {
+                    document.querySelector(".status").innerText = "fourth five minutes...";
+                },3*fiveMinutes);
+                setTimeout(function() {
+                    document.querySelector(".status").innerText = "final five minutes...";
+                },4*fiveMinutes);
+                setTimeout(function() {
+                    if(index == 3) 
+                        finish()
+                    else 
+                        startBreak(index);
+                },5*fiveMinutes);
+            }
+            function startBreak(index) {
+                flash();
+                document.querySelector(".controller").innerHTML = "<h1>Break "+(index+1)+"</h1><p>Time for a break. This should be at least five minutes, but you can take longer if needed.</p><p>Try not to exceed ten minutes - we need to keep the flow going.</p><p>Enter 'Let's Continue!' into the textbox below and press the button when ready.</p><p><input disabled type=\"textbox\" /></p><p><button disabled>Start Next</button></p>";
+                setTimeout(function() {
+                    let input = document.querySelector(".controller input");
+                    input.removeAttribute("disabled");
+                    input.addEventListener("input", function () { 
+                        if(this.value != 'Let\'s Continue!')
+                            return;
+                        let button = document.querySelector(".controller button");
+                        button.removeAttribute("disabled");
+                        button.addEventListener("click", function () { startPomodoro(index + 1); });
+                    });
+                }, fiveMinutes);
+            }
+            function finish() {
+                flash();
+                document.querySelector(".controller").innerHTML = "<h1>Congratulations!</h1><p>You have successfully completed <b>100 minutes</b> of focused work! I hope you achieved something great :)</p><p>To run again, refresh the page. But before you do so, it is important to take a longer break, e.g. at least twenty minutes.</p><p>The breaks are not just for relaxation, but also to help you absorb and reflect on what you have done.</p><p><button disabled>Start again</button></p>";
+                setTimeout(function() {
+                    let button = document.querySelector(".controller button");
+                    button.removeAttribute("disabled");
+                    button.addEventListener("click", function () { window.location.reload(true); });
+                }, 4*fiveMinutes);
+            }
         </script>
     </body>
 </html>
