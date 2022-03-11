@@ -70,6 +70,7 @@
                 setTimeout(function() {
                     document.body.classList.remove("flash");
                 }, 2000);
+                document.querySelector("#alert").play();
             }
             function startPomodoro(index) {
                 flash();
@@ -96,7 +97,7 @@
             }
             function startBreak(index) {
                 flash();
-                document.querySelector(".controller").innerHTML = "<h1>Break "+(index+1)+"</h1><p>Time for a break. This should be at least five minutes, but you can take longer if needed.</p><p>Try not to exceed ten minutes - we need to keep the flow going.</p><p>Enter 'Let's Continue!' into the textbox below and press the button when ready.</p><p><input disabled type=\"textbox\" /></p><p><button disabled>Start Next</button></p>";
+                document.querySelector(".controller").innerHTML = "<h1>Break "+(index+1)+"</h1><p>Time for a break. This should be at least five minutes, but you can take longer if needed.</p><p>Try not to exceed ten minutes - we need to keep the flow going.</p><p>&nbsp;</p><p>&nbsp;</p><p>Enter 'Let's Continue!' into the textbox below and press the button when ready.</p><p><input disabled type=\"textbox\" /></p><p><button disabled>Start Next</button></p>";
                 setTimeout(function() {
                     let input = document.querySelector(".controller input");
                     input.removeAttribute("disabled");
@@ -119,5 +120,6 @@
                 }, 4*fiveMinutes);
             }
         </script>
+        <audio id="alert" src="alert.wav"></audio>
     </body>
 </html>
