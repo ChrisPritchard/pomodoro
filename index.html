@@ -77,13 +77,13 @@
                 document.querySelector(".controller").innerHTML = "<h1>Pomodoro "+(index+1)+"</h1><h2>FOCUS!</h2><h2>FOCUS!</h2><h2>FOCUS!</h2><h2>FOCUS!</h2><h2>FOCUS!</h2><span class=\"status\">first five minutes...</span>";
                 
                 setTimeout(function() {
-                    document.querySelector(".status").innerText = "second five minutes...";
+                    document.querySelector(".status").innerText = "";
                 },fiveMinutes);
                 setTimeout(function() {
-                    document.querySelector(".status").innerText = "third five minutes...";
-                },2*fiveMinutes);
+                    document.querySelector(".status").innerText = "halfway...";
+                },2.5*fiveMinutes);
                 setTimeout(function() {
-                    document.querySelector(".status").innerText = "fourth five minutes...";
+                    document.querySelector(".status").innerText = "";
                 },3*fiveMinutes);
                 setTimeout(function() {
                     document.querySelector(".status").innerText = "final five minutes...";
