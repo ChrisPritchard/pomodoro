@@ -64,6 +64,12 @@
                 let button = document.querySelector(".controller button");
                 button.removeAttribute("disabled");
                 button.addEventListener("click", function () { startPomodoro(0); });
+                input.addEventListener("keyup", function (e) {
+                    if (event.keyCode === 13) {
+                        event.preventDefault();
+                        startPomodoro(0);
+                    }
+                });
             });
             function flash() {
                 document.body.classList.add("flash");
@@ -107,6 +113,12 @@
                         let button = document.querySelector(".controller button");
                         button.removeAttribute("disabled");
                         button.addEventListener("click", function () { startPomodoro(index + 1); });
+                        input.addEventListener("keyup", function (e) {
+                            if (event.keyCode === 13) {
+                                event.preventDefault();
+                                startPomodoro(index + 1);
+                            }
+                        });
                     });
                 }, fiveMinutes);
             }
